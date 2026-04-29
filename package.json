@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy":"netlify deploy --dir=./dist -p -m  'git log -1 --pretty=format:%B' "                                                                            ─╯' "
+    "deploy": "netlify deploy --dir=./dist -p -m \"$(git log -1 --pretty=format:%B)\""
   },
   "dependencies": {
     "axios": "^1.15.2",
