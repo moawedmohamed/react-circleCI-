@@ -8,15 +8,15 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependence-{{checksum "package.json"}}
-          - v1-dependence-
+          - v3-dependence-{{ checksum "package-lock.json" }}
+          - v3-dependence-
       - run:
           name: install dependencies
           command: npm install
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependence-{{checksum "package.json"}}
+          key: v3-dependence-{{ checksum "package-lock.json" }}
       - run:
           name: Run Tests
           command: npm run test
