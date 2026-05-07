@@ -6,26 +6,32 @@ jobs:
         - image: cimg/node:22.19.0
     steps:
       - checkout
+      - run:
+          name: Install pnpm
+          command: npm install -g pnpm
+      - run:
+          name: Set pnpm store path
+          command: pnpm config set store-dir ~/.pnpm-store
       - restore_cache:
           keys:
-          - v3-dependence-{{ checksum "package-lock.json" }}
-          - v3-dependence-
+            - v3-dependence-{{ checksum "pnpm-lock.yaml" }}
+            - v3-dependence-
       - run:
           name: install dependencies
-          command: npm install
+          command: pnpm install --frozen-lockfile
       - save_cache:
           paths:
-            - node_modules
-          key: v3-dependence-{{ checksum "package-lock.json" }}
+            - ~/.pnpm-store
+          key: v3-dependence-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: Run Tests
-          command: npm run test
+          command: pnpm run test
       - run:
           name: Build
-          command: npm run build
+          command: pnpm run build
       - run:
           name: Deploy at netlify
-          command: npm run deploy
+          command: pnpm run deploy
 
 
 workflows:
