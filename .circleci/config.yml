@@ -8,9 +8,7 @@ jobs:
       - checkout
       - run:
           name: Install pnpm
-          command: |
-              corepack enable
-              corepack prepare pnpm@latest --activate
+          command: corepack prepare pnpm@latest --activate
       - run:
           name: Set pnpm store path
           command: pnpm config set store-dir ~/.pnpm-store
